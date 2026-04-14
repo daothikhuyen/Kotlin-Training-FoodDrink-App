@@ -39,4 +39,6 @@
     <string name="avocadoSmoothie">Sinh Tố Bơ</string>
     <string name="softDrink">Nước Ngọt</string>
     <string name="mineralWater">Nước Suối</string>
+    <string name="descriptionPrevious">Previous</string>
+    <string name="descriptionNext">Next</string>
 </resources>

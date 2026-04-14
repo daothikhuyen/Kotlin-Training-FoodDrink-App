@@ -1,19 +1,22 @@
-package com.example.exerciseapplication
+package com.example.exerciseapplication.ui.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
-import com.example.exerciseapplication.databinding.ActivityHomeBinding
-import com.example.exerciseapplication.ui.adapter.HomeAdapter
-import com.example.exerciseapplication.ui.drink.DrinkFragment
-import com.example.exerciseapplication.ui.fastfood.FoodFragment
 import androidx.core.view.get
+import androidx.viewpager2.widget.ViewPager2
+import com.example.exerciseapplication.R
+import com.example.exerciseapplication.databinding.ActivityHomeBinding
+import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
+import com.example.exerciseapplication.ui.home.viewmodel.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,11 @@ class HomeActivity : AppCompatActivity() {
         setupButtons()
     }
 
+    override fun onStart() {
+        super.onStart()
+       viewModel.radomItem()
+    }
+
     private fun setupViewPager() {
         binding.viewPage.adapter = HomeAdapter(this)
 
@@ -38,44 +46,44 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
+    private fun setupButtons() {
+        binding.ibNext.setOnClickListener {
+            val isTagFood = binding.viewPage.currentItem == TAG_FOOD
+            viewModel.next(isTagFood)
+        }
+
+        binding.ibPrevious.setOnClickListener {
+            val isTagFood = binding.viewPage.currentItem == TAG_FOOD
+            viewModel.previous(isTagFood)
+        }
+    }
+
     private fun setupBottomNavigation() {
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.tvFood -> {
-                    binding.viewPage.currentItem = 0
+                    binding.viewPage.currentItem = TAG_FOOD
                     true
                 }
+
                 R.id.tvDrink -> {
-                    binding.viewPage.currentItem = 1
+                    binding.viewPage.currentItem = TAG_DRINK
                     true
                 }
+
                 else -> false
             }
         }
     }
 
-    private fun setupButtons() {
-        binding.btnNext.setOnClickListener {
-            navigateCurrentFragment(isNext = true)
-        }
-
-        binding.btnPrevious.setOnClickListener {
-            navigateCurrentFragment(isNext = false)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "Huỷ activity")
     }
 
-    private fun navigateCurrentFragment(isNext: Boolean) {
-        when (val currentFragment = getCurrentFragment()) {
-            is DrinkFragment -> {
-                if (isNext) currentFragment.nextItem() else currentFragment.previousItem()
-            }
-            is FoodFragment -> {
-                if (isNext) currentFragment.nextItem() else currentFragment.previousItem()
-            }
-        }
+    companion object {
+        const val TAG_FOOD = 0
+        const val TAG_DRINK = 1
     }
 
-    private fun getCurrentFragment(): Fragment? {
-        return supportFragmentManager.findFragmentByTag("f${binding.viewPage.currentItem}")
-    }
 }
