@@ -41,7 +41,4 @@
     <string name="mineralWater">Nước Suối</string>
     <string name="descriptionPrevious">Previous</string>
     <string name="descriptionNext">Next</string>
-    <string name="todo">TODO</string>
-    <string name="enterName">Nhập tên</string>
-    <string name="enterPrice">Nhập giá</string>
 </resources>
