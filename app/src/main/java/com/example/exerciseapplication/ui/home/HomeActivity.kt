@@ -11,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
+import com.example.exerciseapplication.ui.home.adapter.RecycleViewAdapter
+import com.example.exerciseapplication.ui.home.fragment.ItemFragment
 import com.example.exerciseapplication.ui.home.viewmodel.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -27,16 +29,10 @@ class HomeActivity : AppCompatActivity() {
 
         setupViewPager()
         setupBottomNavigation()
-        setupButtons()
-    }
-
-    override fun onStart() {
-        super.onStart()
-       viewModel.radomItem()
     }
 
     private fun setupViewPager() {
-        binding.viewPage.adapter = HomeAdapter(this)
+        binding.viewPage.adapter = HomeAdapter(this@HomeActivity)
 
         // Đồng bộ viewpager2 với bottom navigation
         binding.viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -44,17 +40,14 @@ class HomeActivity : AppCompatActivity() {
                 binding.bottomNavView.menu[position].isChecked = true
             }
         })
-    }
 
-    private fun setupButtons() {
-        binding.ibNext.setOnClickListener {
-            val isTagFood = binding.viewPage.currentItem == TAG_FOOD
-            viewModel.next(isTagFood)
-        }
+        binding.ibAdd.setOnClickListener {
+            val currentFragment =
+                supportFragmentManager.findFragmentByTag("f${binding.viewPage.currentItem}")
 
-        binding.ibPrevious.setOnClickListener {
-            val isTagFood = binding.viewPage.currentItem == TAG_FOOD
-            viewModel.previous(isTagFood)
+            if (currentFragment is ItemFragment) {
+                currentFragment.openAddDialog()
+            }
         }
     }
 
