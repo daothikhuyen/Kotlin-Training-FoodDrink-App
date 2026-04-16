@@ -11,8 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
-import com.example.exerciseapplication.ui.home.adapter.RecycleViewAdapter
-import com.example.exerciseapplication.ui.home.fragment.ItemFragment
 import com.example.exerciseapplication.ui.home.viewmodel.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -29,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
 
         setupViewPager()
         setupBottomNavigation()
+        setupButtons()
     }
 
     override fun onStart() {
@@ -45,14 +44,17 @@ class HomeActivity : AppCompatActivity() {
                 binding.bottomNavView.menu[position].isChecked = true
             }
         })
+    }
 
-        binding.ibAdd.setOnClickListener {
-            val currentFragment =
-                supportFragmentManager.findFragmentByTag("f${binding.viewPage.currentItem}")
+    private fun setupButtons() {
+        binding.ibNext.setOnClickListener {
+            val isTagFood = binding.viewPage.currentItem == TAG_FOOD
+            viewModel.next(isTagFood)
+        }
 
-            if (currentFragment is ItemFragment) {
-                currentFragment.openAddDialog()
-            }
+        binding.ibPrevious.setOnClickListener {
+            val isTagFood = binding.viewPage.currentItem == TAG_FOOD
+            viewModel.previous(isTagFood)
         }
     }
 
