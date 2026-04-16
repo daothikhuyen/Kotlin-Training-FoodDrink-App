@@ -6,8 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.exerciseapplication.ui.home.HomeActivity
 import com.example.exerciseapplication.ui.home.fragment.ItemFragment
 
-class HomeAdapter (activity: AppCompatActivity)
-    : FragmentStateAdapter(activity) {
+class HomeAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = 2
 
