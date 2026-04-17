@@ -1,22 +1,18 @@
 package com.example.exerciseapplication.ui.home.fragment
 
-import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
 import com.example.exerciseapplication.model.MenuItem
-import com.example.exerciseapplication.ui.home.adapter.RecycleViewAdapter
+import com.example.exerciseapplication.ui.home.adapter.MenuViewAdapter
 import com.example.exerciseapplication.ui.home.viewmodel.HomeViewModel
+import com.example.exerciseapplication.ui.home.fragment.AddItemBottomSheet
 import com.example.exerciseapplication.utils.setBorderColor
 
 class ItemFragment : Fragment() {
@@ -39,7 +35,7 @@ class ItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = RecycleViewAdapter()
+        val adapter = MenuViewAdapter()
         binding.rvItem.adapter = adapter
         binding.rvItem.layoutManager = LinearLayoutManager(context)
 
@@ -48,6 +44,7 @@ class ItemFragment : Fragment() {
             binding.tvHeader.text = getString(R.string.listFood)
 
             viewModel.food.observe(viewLifecycleOwner) { list ->
+                // let cho phép kiểm tra null
                 list?.let {
                     adapter.setData(it)
                 }
@@ -70,61 +67,7 @@ class ItemFragment : Fragment() {
         }
 
         adapter.onUpdateItem = { item: MenuItem ->
-            openAddDialog(item)
-        }
-    }
-
-    fun openAddDialog(item: MenuItem? = null) {
-        if(item == null) {
-            showAddDialog { name, price ->
-                viewModel.addItem(isFood, name, price)
-            }
-        }else{
-            showAddDialog(item) { name, price ->
-                val newItem = MenuItem(item.id, name, price)
-                viewModel.updateItem(isFood, newItem)
-            }
-        }
-    }
-
-    private fun showAddDialog(item: MenuItem? = null, onAdd: (String, Int) -> Unit) {
-        val dialogView = LayoutInflater.from(requireContext())
-            .inflate(R.layout.fragment_add, null)
-
-        val edtName = dialogView.findViewById<EditText>(R.id.edtName)
-        val edtPrice = dialogView.findViewById<EditText>(R.id.edtPrice)
-
-        item?.let {
-            edtName.setText(it.name)
-            edtPrice.setText(it.price.toString())
-        }
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Thêm món")
-            .setView(dialogView)
-            .setPositiveButton(if(item == null) "Thêm" else "Cập nhật", null)
-            .setNegativeButton("Hủy", null)
-            .create()
-
-        dialog.show()
-
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            val name = edtName.text.toString().trim()
-            val priceText = edtPrice.text.toString().trim()
-
-            if (name.isEmpty() || priceText.isEmpty()) {
-                Toast.makeText(context, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            val price = priceText.toIntOrNull()
-            if (price == null) {
-                Toast.makeText(context, "Giá không hợp lệ", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            onAdd(name, price)
-            dialog.dismiss()
+            AddItemBottomSheet.newInstance(isFood, item).show(childFragmentManager, "AddBottomSheet")
         }
     }
 

@@ -4,21 +4,17 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
-import com.example.exerciseapplication.ui.home.adapter.RecycleViewAdapter
-import com.example.exerciseapplication.ui.home.fragment.ItemFragment
-import com.example.exerciseapplication.ui.home.viewmodel.HomeViewModel
+import com.example.exerciseapplication.ui.home.fragment.AddItemBottomSheet
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +38,8 @@ class HomeActivity : AppCompatActivity() {
         })
 
         binding.ibAdd.setOnClickListener {
-            val currentFragment =
-                supportFragmentManager.findFragmentByTag("f${binding.viewPage.currentItem}")
-
-            if (currentFragment is ItemFragment) {
-                currentFragment.openAddDialog()
-            }
+            val isFood = binding.viewPage.currentItem == HomeActivity.TAG_FOOD
+            AddItemBottomSheet.newInstance(isFood).show(supportFragmentManager, "AddBottomSheet")
         }
     }
 
