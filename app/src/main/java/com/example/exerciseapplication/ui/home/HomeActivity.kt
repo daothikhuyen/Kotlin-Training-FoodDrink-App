@@ -1,0 +1,74 @@
+package com.example.exerciseapplication.ui.home
+
+import android.content.ContentValues.TAG
+import android.os.Bundle
+import android.util.Log
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
+import androidx.viewpager2.widget.ViewPager2
+import com.example.exerciseapplication.R
+import com.example.exerciseapplication.databinding.ActivityHomeBinding
+import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
+import com.example.exerciseapplication.ui.home.fragment.AddItemBottomSheet
+
+class HomeActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityHomeBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setupViewPager()
+        setupBottomNavigation()
+    }
+
+    private fun setupViewPager() {
+        binding.viewPage.adapter = HomeAdapter(this@HomeActivity)
+
+        // Đồng bộ viewpager2 với bottom navigation
+        binding.viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.bottomNavView.menu[position].isChecked = true
+            }
+        })
+
+        binding.ibAdd.setOnClickListener {
+            val isFood = binding.viewPage.currentItem == HomeActivity.TAG_FOOD
+            AddItemBottomSheet.newInstance(isFood).show(supportFragmentManager, "AddBottomSheet")
+        }
+    }
+
+    private fun setupBottomNavigation() {
+        binding.bottomNavView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.tvFood -> {
+                    binding.viewPage.currentItem = TAG_FOOD
+                    true
+                }
+
+                R.id.tvDrink -> {
+                    binding.viewPage.currentItem = TAG_DRINK
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "Huỷ activity")
+    }
+
+    companion object {
+        const val TAG_FOOD = 0
+        const val TAG_DRINK = 1
+    }
+
+}
