@@ -40,7 +40,7 @@ class HomeViewModel : ViewModel() {
 
     init {
         _food.value = listFood.toList()
-        _drink.value = listDrink.toList()
+        _drink.value = listDrink .toList()
     }
 
     fun addItem(isFood: Boolean, name: String, price: Int) {
