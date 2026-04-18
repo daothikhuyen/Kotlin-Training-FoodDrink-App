@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
@@ -22,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setupViewPager()
         setupBottomNavigation()
@@ -38,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
         })
 
         binding.ibAdd.setOnClickListener {
-            val isFood = binding.viewPage.currentItem == HomeActivity.TAG_FOOD
+            val isFood = binding.viewPage.currentItem == TAG_FOOD
             AddItemBottomSheet.newInstance(isFood).show(supportFragmentManager, "AddBottomSheet")
         }
     }
@@ -66,6 +68,7 @@ class HomeActivity : AppCompatActivity() {
         Log.d(TAG, "Huỷ activity")
     }
 
+    // biến dùng chung cho tất cả class
     companion object {
         const val TAG_FOOD = 0
         const val TAG_DRINK = 1

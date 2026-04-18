@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
@@ -39,37 +40,42 @@ class ItemFragment : Fragment() {
         binding.rvItem.adapter = adapter
         binding.rvItem.layoutManager = LinearLayoutManager(context)
 
-        if (isFood) {
-            binding.tvHeader.setBorderColor(R.color.lightRed, R.color.redBorder, 6)
-            binding.tvHeader.text = getString(R.string.listFood)
-
-            viewModel.food.observe(viewLifecycleOwner) { list ->
-                // let cho phép kiểm tra null
-                list?.let {
-                    adapter.setData(it)
-                }
-            }
-
-        } else {
-            binding.tvHeader.setBorderColor(R.color.lightGreen, R.color.greenMain)
-            binding.tvHeader.text = getString(R.string.listDrink)
-
-            // observe: lắng nghe sự thay đổi của dữ liệu
-            viewModel.drink.observe(viewLifecycleOwner) { list ->
-                list?.let {
-                    adapter.setData(it)
-                }
-            }
-        }
+        if (isFood) listFoodLiveData(adapter)  else istDrinkLiveData(adapter)
 
         adapter.onDeleteItem = { item: MenuItem ->
             viewModel.deleteItem(isFood, item)
         }
 
         adapter.onUpdateItem = { item: MenuItem ->
-            AddItemBottomSheet.newInstance(isFood, item).show(childFragmentManager, "AddBottomSheet")
+            AddItemBottomSheet.newInstance(isFood, item)
+                .show(childFragmentManager, "AddBottomSheet")
         }
     }
+
+    fun listFoodLiveData(adapter: MenuViewAdapter) {
+        binding.tvHeader.setBorderColor(R.color.lightRed, R.color.redBorder, 6)
+        binding.tvHeader.text = getString(R.string.listFood)
+
+        viewModel.food.observe(viewLifecycleOwner) { list ->
+            // let cho phép kiểm tra null
+            list?.let {
+                adapter.submitList(it)
+            }
+        }
+    }
+
+    fun istDrinkLiveData(adapter: MenuViewAdapter) {
+        binding.tvHeader.setBorderColor(R.color.lightGreen, R.color.greenMain)
+        binding.tvHeader.text = getString(R.string.listDrink)
+
+        // observe: lắng nghe sự thay đổi của dữ liệu
+        viewModel.drink.observe(viewLifecycleOwner) { list ->
+            list?.let {
+                adapter.submitList(it)
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
