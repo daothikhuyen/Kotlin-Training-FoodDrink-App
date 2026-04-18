@@ -1,55 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".ui.home.HomeActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPage"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="0dp"
-        android:layout_margin="@dimen/padding_screen"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="10dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:fabAlignmentMode="center"
-        app:fabAnchorMode="cradle"
-        app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="20dp"
-        app:fabCradleVerticalOffset="10dp"
-        android:paddingBottom="0dp"
-        app:paddingBottomSystemWindowInsets="false"
-        android:background="@drawable/bg_border_top">
+        android:paddingTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavView"
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:background="@android:color/transparent"
-            android:elevation="0dp"
-            app:menu="@menu/bottom_nav" />
+            android:layout_gravity="bottom"
+            app:fabAlignmentMode="center"
+            app:fabAnchorMode="cradle"
+            app:fabCradleMargin="20dp"
+            app:fabCradleRoundedCornerRadius="20dp"
+            app:fabCradleVerticalOffset="10dp">
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:menu="@menu/bottom_nav" />
+        </com.google.android.material.bottomappbar.BottomAppBar>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ibAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_anchor="@id/bottomAppBar"
-        app:shapeAppearanceOverlay="@style/CircleFab"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/ibAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:contentDescription="@string/todo"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_anchor="@id/bottomAppBar"
+            app:layout_anchorGravity="center"
+            app:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/viewPage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleFab" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
