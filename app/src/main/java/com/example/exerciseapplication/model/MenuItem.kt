@@ -1,9 +1,11 @@
 package com.example.exerciseapplication.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MenuItem(
     val id: Int,
     var name: String,
     var price: Int
-): Serializable // cho phép truyền dữ liệu
+    ): Parcelable // cho phép truyền dữ liệu
