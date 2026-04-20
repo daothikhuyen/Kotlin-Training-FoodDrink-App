@@ -1,12 +1,10 @@
 package com.example.exerciseapplication.ui.home.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import com.example.exerciseapplication.databinding.LayoutAddItemBinding
 import com.example.exerciseapplication.model.MenuItem
@@ -21,7 +19,7 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
 
     private val viewModel: HomeViewModel by activityViewModels()
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +27,7 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
         _binding = LayoutAddItemBinding.inflate(inflater, container, false)
         arguments?.let {
             isFood = it.getBoolean(ARG_TYPE, true)
-            item = it.getSerializable(ARG_ITEM, MenuItem::class.java)
+            item = it.getSerializable(ARG_ITEM) as? MenuItem
         }
 
         return binding.root
@@ -42,6 +40,7 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
 
         binding.btnAdd.setOnClickListener { onSubmit() }
     }
+
     private fun onLoad(){
         item?.let {
             binding.edtName.setText(it.name)
@@ -51,18 +50,15 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
 
     private fun onSubmit() {
         val name = binding.edtName.text.toString()
-        val priceText = binding.edtPrice.text.toString()
-        if (name.isEmpty() || priceText.isEmpty()) {
+        val price = binding.edtPrice.text.toString().toIntOrNull() ?: 0
+        if (name.isEmpty() && price == 0) {
             Toast.makeText(context, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val price = priceText.toIntOrNull()?: 0
         if (item == null) {
             viewModel.addItem(isFood, name, price)
         } else {
             val newItem = item!!.copy(name = name, price = price)
-
             viewModel.updateItem(isFood, newItem)
         }
         dismiss()
