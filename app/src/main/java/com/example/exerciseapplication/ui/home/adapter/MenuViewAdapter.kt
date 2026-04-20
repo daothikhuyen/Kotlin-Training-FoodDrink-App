@@ -3,15 +3,23 @@ package com.example.exerciseapplication.ui.home.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exerciseapplication.databinding.ItemMenuBinding
 import com.example.exerciseapplication.model.MenuItem
 
-class MenuViewAdapter : ListAdapter<MenuItem, MenuViewAdapter.MenuViewHolder>(MenuDiffCallback()) {
+class MenuViewAdapter : RecyclerView.Adapter<MenuViewAdapter.MenuViewHolder>() {
+
+    private var list: List<MenuItem> = emptyList()
     var onDeleteItem: ((MenuItem) -> Unit)? = null
 
     var onUpdateItem: ((MenuItem) -> Unit)? = null
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newList: List<MenuItem>) {
+        list = newList
+        notifyDataSetChanged()
+    }
+
     inner class MenuViewHolder(var binding: ItemMenuBinding) : RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
         fun bind(item: MenuItem) {
@@ -29,7 +37,10 @@ class MenuViewAdapter : ListAdapter<MenuItem, MenuViewAdapter.MenuViewHolder>(Me
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, postion: Int) {
-        val item = getItem(postion)
+        val item = list[postion]
         holder.bind(item)
     }
+
+
+    override fun getItemCount(): Int = list.size
 }
