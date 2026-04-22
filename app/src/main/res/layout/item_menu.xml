@@ -1,47 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llItemView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingStart="6dp"
-    android:paddingEnd="12dp">
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp"
+    android:background="?attr/selectableItemBackground"
+    app:cardElevation="4dp">
 
-    <ImageButton
-        android:id="@+id/ibDelete"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_delete_24dp_black" />
+        android:gravity="center_vertical"
+        android:padding="12dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:text="Cá hấp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:ignore="MissingConstraints" />
+        <ImageButton
+            android:id="@+id/ibDelete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/white"
+            android:contentDescription="Delete"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_delete_24dp_black"
+            android:tint="#E91E63" />
 
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="end"
-        android:text="5000 đ"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/redBorder"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="12dp"
+            android:layout_weight="1"
+            android:text="Cá hấp"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="12dp"
+            android:gravity="end"
+            android:text="5000đ"
+            android:textColor="#4CAF50"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/ibUpdate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Edit"
+            android:padding="8dp"
+            android:src="@drawable/ic_outline_edit_24dp_black"
+            android:tint="#2196F3" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
