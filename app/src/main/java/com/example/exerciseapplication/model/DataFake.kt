@@ -1,8 +1,8 @@
 package com.example.exerciseapplication.model
 
 object FakeData {
-    fun getFoodList(): List<MenuFoodItem> {
-        return listOf(
+    fun getFoodList(): MutableList<MenuFoodItem> {
+        return mutableListOf(
             MenuFoodItem(1, "Cá Hấp", 356000, "Đồ ăn", false, "Cá tươi hấp gừng, giữ vị ngọt tự nhiên."),
             MenuFoodItem(2, "Phở Tái", 659000, "Đồ ăn", false, "Phở bò với thịt tái mềm, nước dùng đậm đà."),
             MenuFoodItem(3, "Cua Hấp", 10000, "Đồ ăn", false, "Cua hấp sả thơm, thịt chắc và ngọt."),
@@ -25,8 +25,8 @@ object FakeData {
         )
     }
 
-    fun getDrinkList(): List<MenuDrinkItem> {
-        return listOf(
+    fun getDrinkList(): MutableList<MenuDrinkItem> {
+        return mutableListOf(
             MenuDrinkItem(101, "Nước Cam", 356000, "Nước ép", false, "Nước cam tươi, giàu vitamin C."),
             MenuDrinkItem(102, "Nước Dâu", 43000, "Nước ép", false, "Nước dâu chua ngọt."),
             MenuDrinkItem(112, "Nước Ép Dưa Hấu", 35000, "Nước ép", false, "Nước ép mát lạnh."),
