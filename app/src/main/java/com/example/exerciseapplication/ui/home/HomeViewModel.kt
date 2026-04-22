@@ -15,7 +15,6 @@ class HomeViewModel : ViewModel() {
 
     // chỉnh sửa được dữ liệu
     private val _drink = MutableLiveData<List<MenuDrinkItem>>()
-
     // chỉ đọc dữ liệu
     val drink: LiveData<List<MenuDrinkItem>> = _drink
 
@@ -33,13 +32,13 @@ class HomeViewModel : ViewModel() {
         _drink.value = listDrink.toList()
     }
 
-    fun addItem(isFood: Boolean, name: String, price: Int, type: String) {
+    fun addItem(isFood: Boolean, name: String, price: Int, type: String, description: String) {
         if (isFood) {
-            val newItem = MenuFoodItem(listFood.size + 1, name, price, type, false, "Hay")
+            val newItem = MenuFoodItem(listFood.size + 1, name, price, type, false, description)
             listFood.add(newItem)
             _food.value = listFood.toList()
         } else {
-            listDrink.add(MenuDrinkItem(listDrink.size + 1, name, price, type, false, "Hay"))
+            listDrink.add(MenuDrinkItem(listDrink.size + 1, name, price, type, false, description))
             _drink.value = listDrink.toList()
         }
     }

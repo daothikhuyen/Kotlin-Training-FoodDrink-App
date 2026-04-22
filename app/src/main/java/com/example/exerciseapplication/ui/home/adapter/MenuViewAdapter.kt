@@ -78,7 +78,7 @@ class MenuViewAdapter(
         } else {
             if (payloads.contains("SELECT_CHANGE")) {
                 val item = getItem(position)
-                val isSelected = if (item is MenuFoodItem) item.isSelect else (item as MenuDrinkItem).isSelect
+                val isSelected = if (item is MenuFoodItem) item.isSelect else (item as MenuDrinkItem) .isSelect
                 holder.setStateItem(isSelected)
             }
         }
