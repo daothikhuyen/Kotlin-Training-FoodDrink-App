@@ -11,15 +11,40 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPage"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
+        android:layout_marginBottom="10dp"
         android:paddingHorizontal="10dp"
         android:background="@color/white"
         android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/btnDetail"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/btnDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:text="@string/seeDetail"
+        android:background="@drawable/bg_button"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/coordinatorLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPriceProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:text="0đ"
+        app:layout_constraintBottom_toTopOf="@id/coordinatorLayout"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
@@ -36,8 +61,8 @@
             app:fabAlignmentMode="center"
             app:fabAnchorMode="cradle"
             app:fabCradleMargin="20dp"
-            app:fabCradleRoundedCornerRadius="20dp"
-            app:fabCradleVerticalOffset="10dp">
+            app:fabCradleRoundedCornerRadius="15dp"
+            app:fabCradleVerticalOffset="20dp">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavView"
