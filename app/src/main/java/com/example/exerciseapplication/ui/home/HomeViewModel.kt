@@ -10,8 +10,8 @@ import com.example.exerciseapplication.model.MenuFoodItem
 class HomeViewModel : ViewModel() {
 
     // giữ data
-    private val listFood = FakeData.getFoodList().toMutableList()
-    private val listDrink = FakeData.getDrinkList().toMutableList()
+    private val listFood = FakeData.getFoodList()
+    private val listDrink = FakeData.getDrinkList()
 
     // chỉnh sửa được dữ liệu
     private val _drink = MutableLiveData<List<MenuDrinkItem>>()
