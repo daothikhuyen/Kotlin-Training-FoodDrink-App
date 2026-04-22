@@ -48,11 +48,15 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
             is MenuFoodItem -> {
                 binding.edtName.setText(it.name)
                 binding.edtPrice.setText(it.price.toString())
+                binding.edtType.setText(it.type)
+                binding.edtDescription.setText(it.description)
             }
 
             is MenuDrinkItem -> {
                 binding.edtName.setText(it.name)
                 binding.edtPrice.setText(it.price.toString())
+                binding.edtType.setText(it.type)
+                binding.edtDescription.setText(it.description)
             }
 
             else -> return
@@ -62,6 +66,9 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
     private fun onSubmit() {
         val name = binding.edtName.text.toString()
         val priceText = binding.edtPrice.text.toString()
+        val type = binding.edtType.text.toString()
+        val description = binding.edtDescription.text.toString()
+
         if (name.isEmpty() || priceText.isEmpty()) {
             Toast.makeText(context, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
             return
@@ -69,16 +76,16 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
 
         val price = priceText.toIntOrNull() ?: 0
         if (item == null) {
-            viewModel.addItem(isFood, name, price, "đồ ăn")
+            viewModel.addItem(isFood, name, price, type, description)
         } else {
             when (val it = item) {
                 is MenuFoodItem -> {
-                    val newItem = it.copy(name = name, price = price)
+                    val newItem = it.copy(name = name, price = price, type = type, description = description)
                     viewModel.updateItem(true, newItem)
                 }
 
                 is MenuDrinkItem -> {
-                    val newItem = it.copy(name = name, price = price)
+                    val newItem = it.copy(name = name, price = price, type = type, description = description)
                     viewModel.updateItem(false, newItem)
                 }
             }
