@@ -1,8 +1,9 @@
-package com.example.exerciseapplication.ui.home.fragment.bottomsheet
+package com.example.exerciseapplication.utils.bottomsheet
 
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,24 +70,27 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
         val type = binding.edtType.text.toString()
         val description = binding.edtDescription.text.toString()
 
-        if (name.isEmpty() || priceText.isEmpty()) {
+        if (name.isEmpty() || priceText.isEmpty() || type.isEmpty() || description.isEmpty()) {
             Toast.makeText(context, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val price = priceText.toIntOrNull() ?: 0
+        val price = priceText.toLongOrNull() ?: 0
         if (item == null) {
-            viewModel.addItem(isFood, name, price, type, description)
+            if (isFood){
+                viewModel.addFoodItem( name, price, type, description)
+            }else{
+                viewModel.addDrinkItem( name, price, type, description)
+            }
         } else {
             when (val it = item) {
                 is MenuFoodItem -> {
-                    val newItem = it.copy(name = name, price = price, type = type, description = description)
-                    viewModel.updateItem(true, newItem)
+                    val newItem = it.copy(name = name, price = price, isFavorite = it.isFavorite ,type = type, description = description)
+                    viewModel.updateFoodItem(newItem)
                 }
-
                 is MenuDrinkItem -> {
-                    val newItem = it.copy(name = name, price = price, type = type, description = description)
-                    viewModel.updateItem(false, newItem)
+                    val newItem = it.copy(name = name, price = price, isFavorite = it.isFavorite ,type = type, description = description)
+                    viewModel.updateDrinkItem(newItem)
                 }
             }
         }

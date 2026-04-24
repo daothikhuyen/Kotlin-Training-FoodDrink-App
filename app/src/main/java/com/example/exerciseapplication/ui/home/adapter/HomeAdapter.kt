@@ -3,8 +3,8 @@ package com.example.exerciseapplication.ui.home.adapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.exerciseapplication.ui.home.fragment.drink.DrinkFragment
-import com.example.exerciseapplication.ui.home.fragment.food.FoodFragment
+import com.example.exerciseapplication.ui.drink.DrinkFragment
+import com.example.exerciseapplication.ui.food.FoodFragment
 
 class HomeAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 

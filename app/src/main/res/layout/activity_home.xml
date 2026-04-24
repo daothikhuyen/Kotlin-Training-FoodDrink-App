@@ -13,38 +13,14 @@
         android:id="@+id/viewPage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:paddingHorizontal="10dp"
         android:background="@color/white"
         android:backgroundTint="@color/white"
         android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/btnDetail"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/btnDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:text="@string/seeDetail"
-        android:background="@drawable/bg_button"
-        android:backgroundTint="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/coordinatorLayout"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvPriceProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:text="0đ"
-        app:layout_constraintBottom_toTopOf="@id/coordinatorLayout"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
