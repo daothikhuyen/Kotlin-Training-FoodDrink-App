@@ -1,7 +1,5 @@
 package com.example.exerciseapplication.ui.drink.adapter
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ItemMenuBinding
 import com.example.exerciseapplication.model.MenuDrinkItem
-import com.example.exerciseapplication.model.MenuFoodItem
 
 class DrinkAdapter(
     var onDeleteItem: (MenuDrinkItem) -> Unit,
@@ -21,7 +18,7 @@ class DrinkAdapter(
 
     inner class MenuViewHolder(var binding: ItemMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
+
         fun bind(item: MenuDrinkItem) {
 
             binding.tvTitle.text = item.name

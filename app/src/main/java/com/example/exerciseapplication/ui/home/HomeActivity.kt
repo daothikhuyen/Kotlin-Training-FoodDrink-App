@@ -17,6 +17,7 @@ import com.example.exerciseapplication.model.MenuDrinkItem
 import com.example.exerciseapplication.model.MenuFoodItem
 import com.example.exerciseapplication.ui.detail.DetailActivity
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
+import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
 import kotlin.getValue
 
@@ -67,7 +68,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.ibAdd.setOnClickListener {
             val isFood = binding.viewPage.currentItem == TAG_FOOD
-            AddItemBottomSheet.newInstance(isFood).show(supportFragmentManager, "AddBottomSheet")
+            AddItemBottomSheet.newInstance(isFood).show(supportFragmentManager, AppConstants.BOTTOM_SHEET_TAG)
         }
     }
 

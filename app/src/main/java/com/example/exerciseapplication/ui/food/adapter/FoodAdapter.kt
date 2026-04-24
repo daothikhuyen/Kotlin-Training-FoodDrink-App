@@ -1,11 +1,8 @@
 package com.example.exerciseapplication.ui.food.adapter
 
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +19,7 @@ class FoodAdapter(
 
     inner class MenuViewHolder(var binding: ItemMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
+
         fun bind(item: MenuFoodItem) {
 
             binding.tvTitle.text = item.name

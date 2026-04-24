@@ -1,17 +1,11 @@
 package com.example.exerciseapplication.ui.home
 
-import android.content.Intent
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.exerciseapplication.model.FakeData
 import com.example.exerciseapplication.model.MenuDrinkItem
 import com.example.exerciseapplication.model.MenuFoodItem
-import com.example.exerciseapplication.ui.detail.DetailActivity
-import com.example.exerciseapplication.ui.home.HomeActivity.Companion.TAG_FOOD
 
 class HomeViewModel : ViewModel() {
 
