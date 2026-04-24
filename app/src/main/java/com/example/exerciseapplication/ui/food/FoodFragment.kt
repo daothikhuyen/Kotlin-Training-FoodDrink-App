@@ -1,5 +1,6 @@
-package com.example.exerciseapplication.ui.home.fragment.drink
+package com.example.exerciseapplication.ui.food
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -10,24 +11,28 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
-import com.example.exerciseapplication.ui.home.adapter.MenuViewAdapter
-import com.example.exerciseapplication.ui.home.fragment.bottomsheet.AddItemBottomSheet
+import com.example.exerciseapplication.model.MenuFoodItem
+import com.example.exerciseapplication.ui.detail.DetailActivity
+import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
 import com.example.exerciseapplication.ui.home.HomeViewModel
+import com.example.exerciseapplication.ui.food.adapter.FoodAdapter
 import com.example.exerciseapplication.utils.setBorderColor
 import kotlin.getValue
 
-class DrinkFragment : Fragment() {
+class FoodFragment : Fragment() {
 
     private var _binding: FragmentItemBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by activityViewModels()
-    private var isFood: Boolean = false
+
+    private val isFood: Boolean = true
 
     private val adapter by lazy {
-        MenuViewAdapter(
+        FoodAdapter(
             onDeleteItem = ::onDelete,
             onUpdateItem = ::onUpdate,
-            onStateItem = ::onState
+            onStateItem = ::onState,
+            onSeeDetail = ::onSeeDetail
         )
     }
 
@@ -45,12 +50,20 @@ class DrinkFragment : Fragment() {
 
         binding.rvItem.adapter = adapter
         binding.rvItem.layoutManager = LinearLayoutManager(context)
-
-        istDrinkLiveData(adapter)
+        listFoodLiveData(adapter)
     }
 
-    fun onDelete(item: Any) {
-        viewModel.deleteItem(isFood, item)
+    fun listFoodLiveData(adapter: FoodAdapter) {
+        binding.tvHeader.setBorderColor(R.color.lightRed, R.color.redBorder, 6)
+        binding.tvHeader.text = getString(R.string.listFood)
+
+        viewModel.food.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
+        }
+    }
+
+    fun onDelete(item: MenuFoodItem) {
+        viewModel.deleteFoodItem(item)
     }
 
     fun onUpdate(item: Parcelable? = null) {
@@ -58,19 +71,16 @@ class DrinkFragment : Fragment() {
             .show(childFragmentManager, "AddBottomSheet")
     }
 
-    fun onState(item: Any) {
-        viewModel.selectOnlyOne(isFood, item)
+    fun onState(item: MenuFoodItem) {
+        viewModel.selectedFood(item)
     }
 
-    fun istDrinkLiveData(adapter: MenuViewAdapter) {
-        binding.tvHeader.setBorderColor(R.color.lightGreen, R.color.greenMain)
-        binding.tvHeader.text = getString(R.string.listDrink)
-
-        // observe: lắng nghe sự thay đổi của dữ liệu
-        viewModel.drink.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
-        }
+    fun onSeeDetail(item: MenuFoodItem) {
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra("FoodDetail", item)
+        startActivity(intent)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -78,8 +88,9 @@ class DrinkFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): DrinkFragment {
-            val fragment = DrinkFragment()
+
+        fun newInstance(): FoodFragment {
+            val fragment = FoodFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment

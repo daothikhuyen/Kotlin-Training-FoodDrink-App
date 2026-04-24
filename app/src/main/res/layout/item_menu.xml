@@ -25,7 +25,7 @@
             android:contentDescription="Delete"
             android:scaleType="centerInside"
             android:src="@drawable/ic_delete_24dp_black"
-            android:tint="#E91E63" />
+            app:tint="#E91E63" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -52,6 +52,16 @@
             android:textStyle="bold" />
 
         <ImageButton
+            android:id="@+id/ibFavorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/white"
+            android:contentDescription="Favorite"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_favorite_24dp_grey"/>
+
+        <ImageButton
             android:id="@+id/ibUpdate"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -59,7 +69,7 @@
             android:contentDescription="Edit"
             android:padding="8dp"
             android:src="@drawable/ic_outline_edit_24dp_black"
-            android:tint="#2196F3" />
+            app:tint="#2196F3" />
 
     </LinearLayout>
 

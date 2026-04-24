@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class MenuDrinkItem(
     val id: Int,
     var name: String,
-    var price: Int,
+    var price: Long,
     var type: String,
-    var isSelect: Boolean = false,
+    var isFavorite: Boolean = false,
     var description: String? = null
 ) : Parcelable // cho phép truyền dữ liệu
