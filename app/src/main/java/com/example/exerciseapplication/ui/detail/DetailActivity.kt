@@ -30,7 +30,6 @@ class DetailActivity : AppCompatActivity() {
         loadData()
     }
 
-    @SuppressLint("SetTextI18n")
     private fun loadData() {
 
         foodDetail = intent.getParcelableExtra(AppConstants.FOOD_DETAIL)
