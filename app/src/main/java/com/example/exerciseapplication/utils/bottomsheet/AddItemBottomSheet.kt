@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.LayoutAddItemBinding
 import com.example.exerciseapplication.model.MenuDrinkItem
 import com.example.exerciseapplication.model.MenuFoodItem
@@ -38,7 +39,7 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAdd.text = if (item == null) "Thêm" else "Cập nhật"
+        binding.btnAdd.text = if (item == null) getString(R.string.add) else getString(R.string.update)
         onLoad()
 
         binding.btnAdd.setOnClickListener { onSubmit() }
@@ -71,7 +72,7 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
         val description = binding.edtDescription.text.toString()
 
         if (name.isEmpty() || priceText.isEmpty() || type.isEmpty() || description.isEmpty()) {
-            Toast.makeText(context, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.enter_full_info), Toast.LENGTH_SHORT).show()
             return
         }
 

@@ -25,7 +25,7 @@ class DrinkAdapter(
         fun bind(item: MenuDrinkItem) {
 
             binding.tvTitle.text = item.name
-            binding.tvPrice.text = "%,.000f đ".format(item.price.toDouble())
+            binding.tvPrice.text = binding.root.context.getString(R.string.priceFormat, item.price)
 
             binding.ibDelete.setOnClickListener { onDeleteItem.invoke(item) }
             binding.llItemView.setOnClickListener { onSeeDetail.invoke(item) }

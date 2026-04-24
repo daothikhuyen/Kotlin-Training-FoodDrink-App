@@ -16,6 +16,7 @@ import com.example.exerciseapplication.ui.detail.DetailActivity
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.ui.food.adapter.FoodAdapter
+import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
 import kotlin.getValue
 
@@ -68,7 +69,7 @@ class FoodFragment : Fragment() {
 
     fun onUpdate(item: Parcelable? = null) {
         AddItemBottomSheet.newInstance(isFood, item)
-            .show(childFragmentManager, "AddBottomSheet")
+            .show(childFragmentManager, AppConstants.BOTTOM_SHEET_TAG)
     }
 
     fun onState(item: MenuFoodItem) {
@@ -77,7 +78,7 @@ class FoodFragment : Fragment() {
 
     fun onSeeDetail(item: MenuFoodItem) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("FoodDetail", item)
+        intent.putExtra(AppConstants.FOOD_DETAIL, item)
         startActivity(intent)
     }
 

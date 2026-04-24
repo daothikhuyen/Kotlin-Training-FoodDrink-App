@@ -33,6 +33,7 @@ class HomeViewModel : ViewModel() {
         _drink.value = listDrink.toList()
     }
 
+    // add new item
     fun addFoodItem(name: String, price: Long, type: String, description: String) {
         val nextId = (listFood.maxOfOrNull { it.id } ?: 0) + 1
 
@@ -47,6 +48,7 @@ class HomeViewModel : ViewModel() {
         _drink.value = listDrink.toList()
     }
 
+    // update
     fun updateFoodItem(item: MenuFoodItem) {
         val index = listFood.indexOfFirst { it.id == item.id }
         if (index != -1) {
@@ -63,6 +65,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    // delete
     fun deleteFoodItem(item: MenuFoodItem) {
         listFood.removeIf { it.id == item.id }
         _food.value = listFood.toList()
@@ -73,6 +76,7 @@ class HomeViewModel : ViewModel() {
         _drink.value = listDrink.toList()
     }
 
+    // favorite
     fun selectedFood(item: MenuFoodItem) {
         val newList = listFood.map {
             if (it.id == item.id ) it.copy(isFavorite = !it.isFavorite) else it

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,12 +26,12 @@ class FoodAdapter(
         fun bind(item: MenuFoodItem) {
 
             binding.tvTitle.text = item.name
-            binding.tvPrice.text = "%,.000f đ".format(item.price.toDouble())
+            binding.tvPrice.text = binding.root.context.getString(R.string.priceFormat, item.price)
 
             binding.ibDelete.setOnClickListener { onDeleteItem.invoke(item) }
             binding.llItemView.setOnClickListener { onSeeDetail.invoke(item) }
             binding.ibUpdate.setOnClickListener { onUpdateItem.invoke(item) }
-            binding.ibFavorite.setOnClickListener {onStateItem.invoke(item)}
+            binding.ibFavorite.setOnClickListener { onStateItem.invoke(item) }
             setStateItem(item.isFavorite)
         }
 
