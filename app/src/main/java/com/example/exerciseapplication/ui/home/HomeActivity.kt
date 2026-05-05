@@ -73,6 +73,11 @@ class HomeActivity : AppCompatActivity() {
         binding.viewPage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.bottomNavView.menu[position].isChecked = true
+
+                when(position){
+                    TAG_FOOD, TAG_DRINK -> binding.ibAdd.show()
+                    TAG_FAVORITE -> binding.ibAdd.hide()
+                }
             }
         })
 
