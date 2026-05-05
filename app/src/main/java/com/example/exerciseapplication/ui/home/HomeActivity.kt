@@ -1,10 +1,9 @@
 package com.example.exerciseapplication.ui.home
 
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +11,11 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
+import com.example.exerciseapplication.data.repository.DrinkRepositoryImpl
+import com.example.exerciseapplication.data.repository.FoodRepositoryImpl
+import com.example.exerciseapplication.data.source.local.database.AppDatabase
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
-import com.example.exerciseapplication.model.MenuDrinkItem
-import com.example.exerciseapplication.model.MenuFoodItem
-import com.example.exerciseapplication.ui.detail.DetailActivity
+import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
@@ -24,7 +24,9 @@ import kotlin.getValue
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels {
+        Injection.provideHomeVMFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +45,19 @@ class HomeActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.tvFood -> {
                     binding.viewPage.currentItem = TAG_FOOD
+                    binding.ibAdd.show()
                     true
                 }
 
                 R.id.tvDrink -> {
                     binding.viewPage.currentItem = TAG_DRINK
+                    binding.ibAdd.show()
+                    true
+                }
+
+                R.id.tvFavorite -> {
+                    binding.viewPage.currentItem = TAG_FAVORITE
+                    binding.ibAdd.hide()
                     true
                 }
 
@@ -81,6 +91,8 @@ class HomeActivity : AppCompatActivity() {
     companion object {
         const val TAG_FOOD = 0
         const val TAG_DRINK = 1
+
+        const val TAG_FAVORITE = 2
     }
 
 }

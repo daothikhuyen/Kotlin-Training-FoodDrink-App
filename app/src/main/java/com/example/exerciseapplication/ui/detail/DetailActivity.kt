@@ -1,20 +1,17 @@
 package com.example.exerciseapplication.ui.detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ActivityDetailFoodDrinkBinding
-import com.example.exerciseapplication.model.MenuDrinkItem
-import com.example.exerciseapplication.model.MenuFoodItem
+import com.example.exerciseapplication.domain.entities.MenuItem
 import com.example.exerciseapplication.utils.AppConstants
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailFoodDrinkBinding
 
-    private var foodDetail: MenuFoodItem? = null
-    private var drinkDetail: MenuDrinkItem? = null
+    private var menuDetail: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,24 +29,13 @@ class DetailActivity : AppCompatActivity() {
 
     private fun loadData() {
 
-        foodDetail = intent.getParcelableExtra(AppConstants.FOOD_DETAIL)
-        drinkDetail = intent.getParcelableExtra(AppConstants.DRINK_DETAIL)
+        menuDetail = intent.getParcelableExtra(AppConstants.MENU_DETAIL)
 
-        when {
-            foodDetail != null -> {
-                binding.tvName.text = foodDetail!!.name
-                binding.tvPrice.text = binding.root.context.getString(R.string.priceFormatDetail, foodDetail!!.price)
-                binding.tvType.text = binding.root.context.getString(R.string.type, foodDetail!!.type)
-                binding.tvDescription.text = foodDetail!!.description
-            }
+        val typeString = if (menuDetail!!.type == AppConstants.DRINK) R.string.nuocUong else R.string.doAn
 
-            drinkDetail != null -> {
-                binding.tvName.text = drinkDetail!!.name
-                binding.tvPrice.text = binding.root.context.getString(R.string.priceFormatDetail, drinkDetail!!.price)
-                binding.tvType.text = binding.root.context.getString(R.string.type, drinkDetail!!.type)
-                binding.tvDescription.text = drinkDetail!!.description
-            }
-        }
-
+        binding.tvName.text = menuDetail!!.name
+        binding.tvPrice.text = binding.root.context.getString(R.string.priceFormatDetail, menuDetail!!.price)
+        binding.tvType.text = binding.root.context.getString(R.string.type, getString(typeString))
+        binding.tvDescription.text = menuDetail!!.description
     }
 }

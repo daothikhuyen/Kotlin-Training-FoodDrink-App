@@ -3,7 +3,6 @@ package com.example.exerciseapplication.utils.bottomsheet
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,16 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.LayoutAddItemBinding
-import com.example.exerciseapplication.model.MenuDrinkItem
-import com.example.exerciseapplication.model.MenuFoodItem
+import com.example.exerciseapplication.domain.entities.MenuItem
 import com.example.exerciseapplication.ui.home.HomeViewModel
+import com.example.exerciseapplication.utils.AppConstants
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AddItemBottomSheet : BottomSheetDialogFragment() {
     private var _binding: LayoutAddItemBinding? = null
     private val binding get() = _binding!!
     private var isFood: Boolean = true
-    private var item: Any? = null
+    private var item: MenuItem? = null
 
     private val viewModel: HomeViewModel by activityViewModels()
 
@@ -46,29 +45,15 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun onLoad() {
-        when (val it = item) {
-            is MenuFoodItem -> {
-                binding.edtName.setText(it.name)
-                binding.edtPrice.setText(it.price.toString())
-                binding.edtType.setText(it.type)
-                binding.edtDescription.setText(it.description)
-            }
-
-            is MenuDrinkItem -> {
-                binding.edtName.setText(it.name)
-                binding.edtPrice.setText(it.price.toString())
-                binding.edtType.setText(it.type)
-                binding.edtDescription.setText(it.description)
-            }
-
-            else -> return
-        }
+        binding.edtName.setText(item?.name)
+        binding.edtPrice.setText(item?.price?.toString() ?: "")
+        binding.edtDescription.setText(item?.description)
     }
 
     private fun onSubmit() {
         val name = binding.edtName.text.toString()
         val priceText = binding.edtPrice.text.toString()
-        val type = binding.edtType.text.toString()
+        val type = if(isFood) AppConstants.FOOD else AppConstants.DRINK
         val description = binding.edtDescription.text.toString()
 
         if (name.isEmpty() || priceText.isEmpty() || type.isEmpty() || description.isEmpty()) {
@@ -84,15 +69,11 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
                 viewModel.addDrinkItem( name, price, type, description)
             }
         } else {
-            when (val it = item) {
-                is MenuFoodItem -> {
-                    val newItem = it.copy(name = name, price = price, isFavorite = it.isFavorite ,type = type, description = description)
-                    viewModel.updateFoodItem(newItem)
-                }
-                is MenuDrinkItem -> {
-                    val newItem = it.copy(name = name, price = price, isFavorite = it.isFavorite ,type = type, description = description)
-                    viewModel.updateDrinkItem(newItem)
-                }
+            val newItem = item!!.copy(name = name, price = price, isFavorite = item!!.isFavorite ,type = item!!.type, description = description)
+            if (isFood){
+                viewModel.updateFoodItem(newItem)
+            }else{
+                viewModel.updateDrinkItem(newItem)
             }
         }
         dismiss()

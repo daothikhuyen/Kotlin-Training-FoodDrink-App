@@ -8,23 +8,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
+import com.example.exerciseapplication.data.repository.DrinkRepositoryImpl
+import com.example.exerciseapplication.data.repository.FoodRepositoryImpl
+import com.example.exerciseapplication.data.source.local.database.AppDatabase
 import com.example.exerciseapplication.databinding.FragmentItemBinding
-import com.example.exerciseapplication.model.MenuFoodItem
+import com.example.exerciseapplication.di.Injection
+import com.example.exerciseapplication.domain.entities.MenuItem
 import com.example.exerciseapplication.ui.detail.DetailActivity
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.ui.food.adapter.FoodAdapter
+import com.example.exerciseapplication.ui.home.HomeViewModelFactory
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.getValue
 
 class FoodFragment : Fragment() {
 
     private var _binding: FragmentItemBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by activityViewModels{
+        Injection.provideHomeVMFactory(requireContext())
+    }
 
     private val isFood: Boolean = true
 
@@ -57,14 +67,16 @@ class FoodFragment : Fragment() {
     fun listFoodLiveData(adapter: FoodAdapter) {
         binding.tvHeader.setBorderColor(R.color.lightRed, R.color.redBorder, 6)
         binding.tvHeader.text = getString(R.string.listFood)
+        binding.progressBar.visibility = View.VISIBLE
 
         viewModel.food.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
+            binding.progressBar.visibility = View.GONE
         }
     }
 
-    fun onDelete(item: MenuFoodItem) {
-        viewModel.deleteFoodItem(item)
+    fun onDelete(item: MenuItem) {
+        viewModel.deleteFood(item)
     }
 
     fun onUpdate(item: Parcelable? = null) {
@@ -72,13 +84,13 @@ class FoodFragment : Fragment() {
             .show(childFragmentManager, AppConstants.BOTTOM_SHEET_TAG)
     }
 
-    fun onState(item: MenuFoodItem) {
+    fun onState(item: MenuItem) {
         viewModel.selectedFood(item)
     }
 
-    fun onSeeDetail(item: MenuFoodItem) {
+    fun onSeeDetail(item: MenuItem) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra(AppConstants.FOOD_DETAIL, item)
+        intent.putExtra(AppConstants.MENU_DETAIL, item)
         startActivity(intent)
     }
 
