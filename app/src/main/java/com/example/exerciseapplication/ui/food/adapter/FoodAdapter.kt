@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ItemMenuBinding
-import com.example.exerciseapplication.model.MenuFoodItem
+import com.example.exerciseapplication.domain.entities.MenuItem
 
 class FoodAdapter(
-    var onDeleteItem: (MenuFoodItem) -> Unit,
-    var onUpdateItem: (item: MenuFoodItem) -> Unit,
-    var onStateItem: (MenuFoodItem) -> Unit,
-    var onSeeDetail: (item: MenuFoodItem) -> Unit
-) : ListAdapter<MenuFoodItem, FoodAdapter.MenuViewHolder>(MenuDiffCallback) {
+    var onDeleteItem: (MenuItem) -> Unit,
+    var onUpdateItem: (item: MenuItem) -> Unit,
+    var onStateItem: (MenuItem) -> Unit,
+    var onSeeDetail: (item: MenuItem) -> Unit
+) : ListAdapter<MenuItem, FoodAdapter.MenuViewHolder>(MenuDiffCallback) {
 
     inner class MenuViewHolder(var binding: ItemMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MenuFoodItem) {
+        fun bind(item: MenuItem) {
 
             binding.tvTitle.text = item.name
             binding.tvPrice.text = binding.root.context.getString(R.string.priceFormat, item.price)
@@ -59,28 +59,30 @@ class FoodAdapter(
         } else {
             val payload = payloads[0]
             if (payload == true) {
-                holder.setStateItem(getItem(position).isFavorite)
-            } else {
                 holder.bind(getItem(position))
             }
         }
     }
 
     companion object {
-        val MenuDiffCallback = object : DiffUtil.ItemCallback<MenuFoodItem>() {
+        val MenuDiffCallback = object : DiffUtil.ItemCallback<MenuItem>() {
 
             // Đây có phải cùng 1 id không? :  true = cùng 1 đối tượng trong danh sách
-            override fun areItemsTheSame(oldItem: MenuFoodItem, newItem: MenuFoodItem): Boolean {
+            override fun areItemsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
                 return oldItem.id == newItem.id
             }
 
             // Đây có phải cùng một nội dung không?: true không cần update ui
-            override fun areContentsTheSame(oldItem: MenuFoodItem, newItem: MenuFoodItem): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
+                return oldItem == newItem // return false go payloads
             }
 
-            override fun getChangePayload(oldItem: MenuFoodItem, newItem: MenuFoodItem): Boolean {
+            override fun getChangePayload(oldItem: MenuItem, newItem: MenuItem): Boolean {
                 return oldItem.isFavorite != newItem.isFavorite
+                        || oldItem.price != newItem.price
+                        || oldItem.name != newItem.name
+                        || oldItem.description != newItem.description
+                        || oldItem.type != newItem.type
             }
         }
     }

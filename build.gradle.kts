@@ -2,4 +2,5 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     kotlin("android") version "2.3.0" apply false
+    id("com.google.devtools.ksp") version "2.3.4" apply false
 }

@@ -10,4 +10,9 @@
         android:id="@+id/tvDrink"
         android:icon="@drawable/ic_park_drink_24px_black"
         android:title="@string/nuocUong" />
+
+    <item
+        android:id="@+id/tvFavorite"
+        android:icon="@drawable/ic_favorite_24dp_grey"
+        android:title="@string/favorite" />
 </menu>
