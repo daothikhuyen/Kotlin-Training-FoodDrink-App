@@ -8,22 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
-import com.example.exerciseapplication.data.source.local.database.AppDatabase
 import com.example.exerciseapplication.databinding.FragmentItemBinding
 import com.example.exerciseapplication.di.Injection
-import com.example.exerciseapplication.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.ui.detail.DetailActivity
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.ui.food.adapter.FoodAdapter
-import com.example.exerciseapplication.ui.home.HomeViewModelFactory
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlin.getValue
 
 class FoodFragment : Fragment() {

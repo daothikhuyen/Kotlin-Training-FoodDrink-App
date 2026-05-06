@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
 import com.example.exerciseapplication.di.Injection
-import com.example.exerciseapplication.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.ui.detail.DetailActivity
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
 import com.example.exerciseapplication.ui.drink.adapter.DrinkAdapter
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
-import kotlinx.coroutines.delay
 import kotlin.getValue
 
 class DrinkFragment : Fragment() {

@@ -1,7 +1,7 @@
-package com.example.exerciseapplication.domain.repository
+package com.example.exerciseapplication.data.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.example.exerciseapplication.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.entities.MenuItem
 
 interface FavoriteRepository {
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ItemMenuBinding
-import com.example.exerciseapplication.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.entities.MenuItem
 
 class FoodAdapter(
     var onDeleteItem: (MenuItem) -> Unit,

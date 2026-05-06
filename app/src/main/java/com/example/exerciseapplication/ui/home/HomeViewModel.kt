@@ -5,9 +5,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.exerciseapplication.domain.entities.FakeData
-import com.example.exerciseapplication.domain.entities.MenuItem
-import com.example.exerciseapplication.domain.repository.FavoriteRepository
+import com.example.exerciseapplication.data.domain.entities.FakeData
+import com.example.exerciseapplication.data.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.repository.FavoriteRepository
 import com.example.exerciseapplication.utils.AppConstants
 import kotlinx.coroutines.launch
 
