@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.exerciseapplication.data.source.local.dao.DrinkDao
-import com.example.exerciseapplication.data.source.local.dao.FoodDao
+import com.example.exerciseapplication.data.source.local.dao.FavoriteDao
 import com.example.exerciseapplication.domain.entities.MenuItem
 
 // AppDatabaselà lớp cơ sở dữ liệu Room, exportSchema: xuất file json db
@@ -16,8 +15,7 @@ import com.example.exerciseapplication.domain.entities.MenuItem
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun foodDao(): FoodDao
-    abstract fun drinkDao(): DrinkDao
+    abstract fun favoriteDao(): FavoriteDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

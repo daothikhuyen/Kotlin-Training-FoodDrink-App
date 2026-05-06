@@ -1,105 +1,156 @@
 package com.example.exerciseapplication.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.exerciseapplication.domain.entities.FakeData
 import com.example.exerciseapplication.domain.entities.MenuItem
-import com.example.exerciseapplication.domain.repository.DrinkRepository
-import com.example.exerciseapplication.domain.repository.FoodRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import com.example.exerciseapplication.domain.repository.FavoriteRepository
+import com.example.exerciseapplication.utils.AppConstants
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val foodRepository: FoodRepository, private val drinkRepository: DrinkRepository) : ViewModel() {
+class HomeViewModel(
+    private val favoriteRepository: FavoriteRepository
+) : ViewModel() {
 
-    // chỉ đọc dữ liệu
-    val drink: LiveData<List<MenuItem>> = drinkRepository.getDrinkList()
-    val food: LiveData<List<MenuItem>> = foodRepository.getFoodList()
+    // Data gốc (Fake API)
+    private val listFood = FakeData.getFoodList()
+    private val listDrink = FakeData.getDrinkList()
 
-    private val _isLoading = MutableLiveData<Boolean>(true)
+    // LiveData UI
+    private val _food = MediatorLiveData<List<MenuItem>>()
+    val food: LiveData<List<MenuItem>> = _food
+
+    private val _drink = MediatorLiveData<List<MenuItem>>()
+    val drink: LiveData<List<MenuItem>> = _drink
+
+    private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> = _isLoading
 
-    val drinkFavorite: LiveData<List<MenuItem>> = drinkRepository.getFavoriteList()
-    val foodFavorite: LiveData<List<MenuItem>> = foodRepository.getFavoriteList()
+    // Favorite từ Room
+    val foodFavorite = favoriteRepository.getFavoriteList(AppConstants.FOOD)
+    val drinkFavorite = favoriteRepository.getFavoriteList(AppConstants.DRINK)
 
     init {
         initData()
     }
 
     private fun initData() {
+        _food.addSource(foodFavorite) { favorites ->
+            updateUI(listFood, favorites, _food)
+        }
 
-        // chạy hàm này trên luồng đồng bộ (main thread)
-        viewModelScope.launch() {
-            val currentFood = foodRepository.getFoodListOnce()
-            if (currentFood.isEmpty()) {
-                foodRepository.insertAll(FakeData.getFoodList())
-            }
-
-            val currentDrink = drinkRepository.getDrinkListOnce()
-            if (currentDrink.isEmpty()) {
-                drinkRepository.insertAll(FakeData.getDrinkList())
-            }
+        _drink.addSource(drinkFavorite) { favorites ->
+            updateUI(listDrink, favorites, _drink)
         }
     }
 
-    fun setLoadingFalse() {
-        _isLoading.value = false
+    private fun updateUI(
+        baseList: List<MenuItem>,
+        favorites: List<MenuItem>,
+        liveData: MutableLiveData<List<MenuItem>>
+    ) {
+        val favoriteIds = favorites.map { it.id }.toSet()
+
+        liveData.value = baseList.map {
+            it.copy(isFavorite = favoriteIds.contains(it.id))
+        }
     }
 
-    // add new item
     fun addFoodItem(name: String, price: Long, type: String, description: String) {
-        viewModelScope.launch {
-            val item = MenuItem(name = name, price = price, type = type, description = description)
-            foodRepository.insertAll(listOf(item))
-        }
+        listFood.add(createNewItem(listFood, name, price, type, description))
+        refreshFood()
     }
 
     fun addDrinkItem(name: String, price: Long, type: String, description: String) {
-        viewModelScope.launch {
-            val item = MenuItem(name = name, price = price, type = type, description = description)
-            drinkRepository.insertAll(listOf(item))
-        }
+        listDrink.add(createNewItem(listDrink, name, price, type, description))
+        refreshDrink()
     }
 
-    // update
+    private fun createNewItem(
+        list: List<MenuItem>,
+        name: String,
+        price: Long,
+        type: String,
+        description: String
+    ): MenuItem {
+        val nextId = (list.maxOfOrNull { it.id } ?: 0) + 1
+        return MenuItem(nextId, name, price, type, false, description)
+    }
+
     fun updateFoodItem(item: MenuItem) {
-        viewModelScope.launch {
-            foodRepository.updateItem(item)
-        }
+        updateItem(listFood, item)
+        updateFavoriteIfNeeded(item)
+        refreshFood()
     }
 
     fun updateDrinkItem(item: MenuItem) {
-        viewModelScope.launch {
-            drinkRepository.updateItem(item)
+        updateItem(listDrink, item)
+        updateFavoriteIfNeeded(item)
+        refreshDrink()
+    }
+
+    private fun updateItem(list: MutableList<MenuItem>, item: MenuItem) {
+        val index = list.indexOfFirst { it.id == item.id }
+        if (index != -1) {
+            list[index] = item
         }
     }
 
     fun deleteFood(item: MenuItem) {
-        viewModelScope.launch {
-            foodRepository.deleteItem(item.id)
-        }
+        deleteItem(listFood, item)
+        removeFavoriteIfNeeded(item)
+        refreshFood()
     }
 
     fun deleteDrink(item: MenuItem) {
+        deleteItem(listDrink, item)
+        removeFavoriteIfNeeded(item)
+        refreshDrink()
+    }
+
+    private fun deleteItem(list: MutableList<MenuItem>, item: MenuItem) {
+        list.removeIf { it.id == item.id }
+    }
+
+    fun selectedFood(item: MenuItem) = toggleFavorite(item)
+
+    fun selectedDrink(item: MenuItem) = toggleFavorite(item)
+
+    private fun toggleFavorite(item: MenuItem) {
+        val newItem = item.copy(isFavorite = !item.isFavorite)
         viewModelScope.launch {
-            drinkRepository.deleteItem(item.id)
+            favoriteRepository.toggleFavorite(newItem)
         }
     }
 
-
-    // favorite
-    fun selectedFood(item: MenuItem) {
-        viewModelScope.launch {
-           foodRepository.toggleFavorite(item.id)
+    private fun updateFavoriteIfNeeded(item: MenuItem) {
+        if (item.isFavorite) {
+            viewModelScope.launch {
+                favoriteRepository.updateFavorite(item)
+            }
         }
     }
 
-    fun selectedDrink(item: MenuItem) {
-        viewModelScope.launch {
-            drinkRepository.toggleFavorite(item.id)
+    private fun removeFavoriteIfNeeded(item: MenuItem) {
+        if (item.isFavorite) {
+            toggleFavorite(item)
         }
+    }
+
+    private fun refreshFood() {
+        val favorites = foodFavorite.value ?: emptyList()
+        updateUI(listFood, favorites, _food)
+    }
+
+    private fun refreshDrink() {
+        val favorites = drinkFavorite.value ?: emptyList()
+        updateUI(listDrink, favorites, _drink)
+    }
+
+    fun setLoadingFalse() {
+        _isLoading.value = false
     }
 }

@@ -11,8 +11,6 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
-import com.example.exerciseapplication.data.repository.DrinkRepositoryImpl
-import com.example.exerciseapplication.data.repository.FoodRepositoryImpl
 import com.example.exerciseapplication.data.source.local.database.AppDatabase
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
 import com.example.exerciseapplication.di.Injection
