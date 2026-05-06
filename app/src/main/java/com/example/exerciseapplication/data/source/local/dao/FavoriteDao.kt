@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.exerciseapplication.data.domain.entities.MenuItem
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteDao {
@@ -23,5 +24,5 @@ interface FavoriteDao {
     suspend fun deleteItem(id: Int)
 
     @Query("SELECT * FROM table_menu WHERE type = :type ")
-    fun getFavoriteList(type: String): LiveData<List<MenuItem>>
+    fun getFavoriteList(type: String): Flow<List<MenuItem>>
 }

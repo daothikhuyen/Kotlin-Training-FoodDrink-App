@@ -1,9 +1,9 @@
 package com.example.exerciseapplication.ui.home
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +11,13 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
-import com.example.exerciseapplication.data.source.local.database.AppDatabase
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
 import com.example.exerciseapplication.di.Injection
+import com.example.exerciseapplication.ui.beer.BeerActivity
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
-import kotlin.getValue
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -82,6 +82,11 @@ class HomeActivity : AppCompatActivity() {
         binding.ibAdd.setOnClickListener {
             val isFood = binding.viewPage.currentItem == TAG_FOOD
             AddItemBottomSheet.newInstance(isFood).show(supportFragmentManager, AppConstants.BOTTOM_SHEET_TAG)
+        }
+
+        binding.ibBeer.setOnClickListener {
+            val intent: Intent = Intent(this, BeerActivity::class.java)
+            startActivity(intent)
         }
     }
 

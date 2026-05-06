@@ -2,6 +2,7 @@ package com.example.exerciseapplication.data.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.example.exerciseapplication.data.domain.entities.MenuItem
+import kotlinx.coroutines.flow.Flow
 
 interface FavoriteRepository {
 
@@ -9,5 +10,5 @@ interface FavoriteRepository {
 
     suspend fun deleteItem(id: Int)
     suspend fun toggleFavorite(item: MenuItem)
-    fun getFavoriteList(type: String): LiveData<List<MenuItem>>
+    fun getFavoriteList(type: String): Flow<List<MenuItem>>
 }

@@ -5,9 +5,10 @@ import com.example.exerciseapplication.data.source.local.dao.FavoriteDao
 import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.data.domain.repository.FavoriteRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class FavoriteRepositoryImpl(private val dao : FavoriteDao)  : FavoriteRepository {
+class FavoriteRepositoryImpl (private val dao : FavoriteDao)  : FavoriteRepository {
     override suspend fun updateFavorite(item: MenuItem) = withContext(Dispatchers.IO){
         dao.updateItem(item)
     }
@@ -24,7 +25,7 @@ class FavoriteRepositoryImpl(private val dao : FavoriteDao)  : FavoriteRepositor
         dao.insertItem(item)
     }
 
-    override fun getFavoriteList(type : String): LiveData<List<MenuItem>> {
+    override fun getFavoriteList(type : String): Flow<List<MenuItem>> {
         return dao.getFavoriteList(type)
     }
 }

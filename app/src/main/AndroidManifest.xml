@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExerciseApplication">
         <activity
+            android:name=".ui.beer.BeerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.beer.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.BeerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ExerciseApplication" />
+        <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false"
             android:theme="@style/Theme.ExerciseApplication" />

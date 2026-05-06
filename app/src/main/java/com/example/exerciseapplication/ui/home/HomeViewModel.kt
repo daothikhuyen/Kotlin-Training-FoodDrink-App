@@ -9,6 +9,9 @@ import com.example.exerciseapplication.data.domain.entities.FakeData
 import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.data.domain.repository.FavoriteRepository
 import com.example.exerciseapplication.utils.AppConstants
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -20,11 +23,11 @@ class HomeViewModel(
     private val listDrink = FakeData.getDrinkList()
 
     // LiveData UI
-    private val _food = MediatorLiveData<List<MenuItem>>()
-    val food: LiveData<List<MenuItem>> = _food
+    private val _food = MutableStateFlow<List<MenuItem>>(emptyList())
+    val food: Flow<List<MenuItem>> = _food.asStateFlow()
 
-    private val _drink = MediatorLiveData<List<MenuItem>>()
-    val drink: LiveData<List<MenuItem>> = _drink
+    private val _drink = MutableStateFlow<List<MenuItem>>(emptyList())
+    val drink: Flow<List<MenuItem>> = _food.asStateFlow()
 
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> = _isLoading
