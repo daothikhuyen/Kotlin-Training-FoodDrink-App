@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.LayoutAddItemBinding
-import com.example.exerciseapplication.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.utils.AppConstants
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

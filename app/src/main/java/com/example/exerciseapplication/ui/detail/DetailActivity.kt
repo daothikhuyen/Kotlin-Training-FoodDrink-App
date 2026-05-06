@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ActivityDetailFoodDrinkBinding
-import com.example.exerciseapplication.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.utils.AppConstants
 
 class DetailActivity : AppCompatActivity() {
