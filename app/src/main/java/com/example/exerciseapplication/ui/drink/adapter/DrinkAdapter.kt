@@ -88,3 +88,7 @@ class DrinkAdapter(
         }
     }
 }
+
+// UI State - payload isAdded, isFavorite
+
+// Collections name-description

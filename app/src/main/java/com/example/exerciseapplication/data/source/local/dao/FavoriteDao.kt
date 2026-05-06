@@ -1,4 +1,27 @@
 package com.example.exerciseapplication.data.source.local.dao
 
-class FavoriteFao {
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
+import com.example.exerciseapplication.domain.entities.MenuItem
+
+@Dao
+interface FavoriteDao {
+
+    @Query("SELECT * FROM table_menu WHERE id = :id")
+    suspend fun getFavoriteListOnce(id: Int): List<MenuItem>
+
+    @Insert
+    suspend fun insertItem(item: MenuItem)
+
+    @Update
+    suspend fun updateItem(item: MenuItem)
+
+    @Query("DELETE FROM table_menu WHERE id = :id")
+    suspend fun deleteItem(id: Int)
+
+    @Query("SELECT * FROM table_menu WHERE type = :type ")
+    fun getFavoriteList(type: String): LiveData<List<MenuItem>>
 }

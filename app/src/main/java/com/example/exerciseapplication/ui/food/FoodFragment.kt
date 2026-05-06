@@ -11,8 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
-import com.example.exerciseapplication.data.repository.DrinkRepositoryImpl
-import com.example.exerciseapplication.data.repository.FoodRepositoryImpl
 import com.example.exerciseapplication.data.source.local.database.AppDatabase
 import com.example.exerciseapplication.databinding.FragmentItemBinding
 import com.example.exerciseapplication.di.Injection

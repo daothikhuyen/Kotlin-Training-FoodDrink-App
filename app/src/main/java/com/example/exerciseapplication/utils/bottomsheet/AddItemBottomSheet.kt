@@ -69,7 +69,7 @@ class AddItemBottomSheet : BottomSheetDialogFragment() {
                 viewModel.addDrinkItem( name, price, type, description)
             }
         } else {
-            val newItem = item!!.copy(name = name, price = price, isFavorite = item!!.isFavorite ,type = item!!.type, description = description)
+            val newItem = item!!.copy(name = name, price = price, description = description)
             if (isFood){
                 viewModel.updateFoodItem(newItem)
             }else{

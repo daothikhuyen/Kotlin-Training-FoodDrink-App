@@ -1,4 +1,13 @@
 package com.example.exerciseapplication.domain.repository
 
-class FavoriteRepository {
+import androidx.lifecycle.LiveData
+import com.example.exerciseapplication.domain.entities.MenuItem
+
+interface FavoriteRepository {
+
+    suspend fun updateFavorite(item: MenuItem)
+
+    suspend fun deleteItem(id: Int)
+    suspend fun toggleFavorite(item: MenuItem)
+    fun getFavoriteList(type: String): LiveData<List<MenuItem>>
 }
