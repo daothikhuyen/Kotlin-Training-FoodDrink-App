@@ -42,19 +42,19 @@ class FavoriteItem : Fragment() {
         binding.rvItem.adapter = adapter
         binding.rvItem.layoutManager = LinearLayoutManager(context)
 
-        if (isFood) {
-            viewModel.foodFavorite.observe(viewLifecycleOwner) {
-                binding.progressBar.visibility = View.VISIBLE
-                adapter.submitList(it)
-                binding.progressBar.visibility = View.GONE
-            }
-        } else {
-            viewModel.drinkFavorite.observe(viewLifecycleOwner) {
-                binding.progressBar.visibility = View.VISIBLE
-                adapter.submitList(it)
-                binding.progressBar.visibility = View.GONE
-            }
-        }
+//        if (isFood) {
+//            viewModel.foodFavorite.observe(viewLifecycleOwner) {
+//                binding.progressBar.visibility = View.VISIBLE
+//                adapter.submitList(it)
+//                binding.progressBar.visibility = View.GONE
+//            }
+//        } else {
+//            viewModel.drinkFavorite.observe(viewLifecycleOwner) {
+//                binding.progressBar.visibility = View.VISIBLE
+//                adapter.submitList(it)
+//                binding.progressBar.visibility = View.GONE
+//            }
+//        }
     }
 
     companion object {

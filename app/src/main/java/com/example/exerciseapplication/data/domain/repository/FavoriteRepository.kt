@@ -1,6 +1,5 @@
 package com.example.exerciseapplication.data.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.example.exerciseapplication.data.domain.entities.MenuItem
 import kotlinx.coroutines.flow.Flow
 

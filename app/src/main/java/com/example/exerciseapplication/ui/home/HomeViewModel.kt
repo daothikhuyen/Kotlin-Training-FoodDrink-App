@@ -41,13 +41,13 @@ class HomeViewModel(
     }
 
     private fun initData() {
-        _food.addSource(foodFavorite) { favorites ->
-            updateUI(listFood, favorites, _food)
-        }
-
-        _drink.addSource(drinkFavorite) { favorites ->
-            updateUI(listDrink, favorites, _drink)
-        }
+//        _food.addSource(foodFavorite) { favorites ->
+//            updateUI(listFood, favorites, _food)
+//        }
+//
+//        _drink.addSource(drinkFavorite) { favorites ->
+//            updateUI(listDrink, favorites, _drink)
+//        }
     }
 
     private fun updateUI(
@@ -144,13 +144,13 @@ class HomeViewModel(
     }
 
     private fun refreshFood() {
-        val favorites = foodFavorite.value ?: emptyList()
-        updateUI(listFood, favorites, _food)
+//        val favorites = foodFavorite.value ?: emptyList()
+//        updateUI(listFood, favorites, _food)
     }
 
     private fun refreshDrink() {
-        val favorites = drinkFavorite.value ?: emptyList()
-        updateUI(listDrink, favorites, _drink)
+//        val favorites = drinkFavorite.value ?: emptyList()
+//        updateUI(listDrink, favorites, _drink)
     }
 
     fun setLoadingFalse() {

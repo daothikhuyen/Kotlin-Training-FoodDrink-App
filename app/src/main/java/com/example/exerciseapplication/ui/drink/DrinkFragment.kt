@@ -82,10 +82,10 @@ class DrinkFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
 
         // observe: lắng nghe sự thay đổi của dữ liệu
-        viewModel.drink.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
-            binding.progressBar.visibility = View.GONE
-        }
+//        viewModel.drink.observe(viewLifecycleOwner) { list ->
+//            adapter.submitList(list)
+//            binding.progressBar.visibility = View.GONE
+//        }
     }
 
     override fun onDestroyView() {

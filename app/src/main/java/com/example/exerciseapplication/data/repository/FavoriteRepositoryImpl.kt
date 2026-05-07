@@ -1,6 +1,5 @@
 package com.example.exerciseapplication.data.repository
 
-import androidx.lifecycle.LiveData
 import com.example.exerciseapplication.data.source.local.dao.FavoriteDao
 import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.data.domain.repository.FavoriteRepository
