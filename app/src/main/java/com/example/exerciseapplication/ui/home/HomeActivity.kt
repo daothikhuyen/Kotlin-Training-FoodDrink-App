@@ -9,14 +9,17 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.get
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
 import com.example.exerciseapplication.di.Injection
-import com.example.exerciseapplication.ui.beer.BeerActivity
+import com.example.exerciseapplication.ui.beer.WineActivity
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class HomeActivity : AppCompatActivity() {
@@ -39,6 +42,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
+        lifecycleScope.launch {
+            //loadiing
+            delay(5000)
+            //hide loading
+        }
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.tvFood -> {
@@ -85,7 +93,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.ibBeer.setOnClickListener {
-            val intent: Intent = Intent(this, BeerActivity::class.java)
+            val intent: Intent = Intent(this, WineActivity::class.java)
             startActivity(intent)
         }
     }

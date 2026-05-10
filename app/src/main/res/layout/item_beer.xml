@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="10dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="16dp"
+    app:strokeColor="#FFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:padding="12dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgWine"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="#f3f3f3"
+            app:shapeAppearanceOverlay="@style/CircleFab"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitleWinery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:lineHeight="18sp"
+                android:textStyle="bold"
+                android:text="Spotted Dead Nettles"/>
+
+            <TextView
+                android:id="@+id/tvTitleWine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:lineHeight="18sp"
+                android:textColor="#73000000"
+                android:text="Lamium Maculatum"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_add_28dp_green"
+            android:backgroundTint="@color/white"/>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

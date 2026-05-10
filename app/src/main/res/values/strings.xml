@@ -60,4 +60,5 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="favorite">Yêu thích</string>
+    <string name="search_in_products">Search in products</string>
 </resources>

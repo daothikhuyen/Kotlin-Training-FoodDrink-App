@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
@@ -19,6 +20,7 @@ import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.ui.food.adapter.FoodAdapter
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
+import kotlinx.coroutines.launch
 import kotlin.getValue
 
 class FoodFragment : Fragment() {
@@ -62,9 +64,11 @@ class FoodFragment : Fragment() {
         binding.tvHeader.text = getString(R.string.listFood)
         binding.progressBar.visibility = View.VISIBLE
 
-        viewModel.food.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
-            binding.progressBar.visibility = View.GONE
+        viewLifecycleOwner.lifecycleScope.launch{
+            viewModel.food.collect { list ->
+                adapter.submitList(list)
+                binding.progressBar.visibility = View.GONE
+            }
         }
     }
 
