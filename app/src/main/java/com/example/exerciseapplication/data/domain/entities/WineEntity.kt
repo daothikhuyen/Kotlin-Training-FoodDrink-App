@@ -1,6 +1,7 @@
 package com.example.exerciseapplication.data.domain.entities
 
 import android.os.Parcelable
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
@@ -13,5 +14,6 @@ data class WineEntity(
     val wine: String,
     val image: String,
     val location: String,
+    @Embedded val rating: Rating,
     val isCollected: Boolean = false
 ): Parcelable

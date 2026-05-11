@@ -5,8 +5,8 @@ import androidx.room.Entity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "Ratting")
-data class Ratting(
+@Entity(tableName = "Rating")
+data class Rating(
     val average : Double,
     val reviews : String
 ): Parcelable {
