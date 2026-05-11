@@ -65,4 +65,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/CircleFab" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ibBeer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/todo"
+        android:src="@android:drawable/alert_dark_frame"
+        app:elevation="8dp"
+        app:layout_anchorGravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/ibAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/CircleFab" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

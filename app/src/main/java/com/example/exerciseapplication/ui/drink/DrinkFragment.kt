@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
@@ -19,6 +21,7 @@ import com.example.exerciseapplication.ui.drink.adapter.DrinkAdapter
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
+import kotlinx.coroutines.launch
 import kotlin.getValue
 
 class DrinkFragment : Fragment() {
@@ -80,12 +83,11 @@ class DrinkFragment : Fragment() {
         binding.tvHeader.setBorderColor(R.color.lightGreen, R.color.greenMain)
         binding.tvHeader.text = getString(R.string.listDrink)
         binding.progressBar.visibility = View.VISIBLE
-
-        // observe: lắng nghe sự thay đổi của dữ liệu
-        viewModel.drink.observe(viewLifecycleOwner) { list ->
+        viewModel.drink.asLiveData().observe(viewLifecycleOwner){ list ->
             adapter.submitList(list)
             binding.progressBar.visibility = View.GONE
         }
+
     }
 
     override fun onDestroyView() {

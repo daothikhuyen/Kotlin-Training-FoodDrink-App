@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.databinding.FragmentFavoriteItemBinding
 import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.ui.favoriteitem.adapter.FavoriteItemAdapter
 import com.example.exerciseapplication.ui.home.HomeViewModel
+import kotlinx.coroutines.launch
 import kotlin.getValue
 
 class FavoriteItem : Fragment() {
@@ -43,16 +45,20 @@ class FavoriteItem : Fragment() {
         binding.rvItem.layoutManager = LinearLayoutManager(context)
 
         if (isFood) {
-            viewModel.foodFavorite.observe(viewLifecycleOwner) {
-                binding.progressBar.visibility = View.VISIBLE
-                adapter.submitList(it)
-                binding.progressBar.visibility = View.GONE
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.foodFavorite.collect {
+                    binding.progressBar.visibility = View.VISIBLE
+                    adapter.submitList(it)
+                    binding.progressBar.visibility = View.GONE
+                }
             }
         } else {
-            viewModel.drinkFavorite.observe(viewLifecycleOwner) {
-                binding.progressBar.visibility = View.VISIBLE
-                adapter.submitList(it)
-                binding.progressBar.visibility = View.GONE
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.drinkFavorite.collect {
+                    binding.progressBar.visibility = View.VISIBLE
+                    adapter.submitList(it)
+                    binding.progressBar.visibility = View.GONE
+                }
             }
         }
     }

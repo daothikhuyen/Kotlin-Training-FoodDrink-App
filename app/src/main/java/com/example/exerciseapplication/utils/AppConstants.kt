@@ -5,4 +5,5 @@ object AppConstants {
     const val BOTTOM_SHEET_TAG = "BOTTOM_SHEET_TAG"
     const val DRINK = "drink"
     const val FOOD = "food"
+    const val WINE_DETAIL = "WINE_DETAIL"
 }

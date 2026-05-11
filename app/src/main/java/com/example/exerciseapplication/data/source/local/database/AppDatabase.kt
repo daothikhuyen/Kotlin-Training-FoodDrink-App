@@ -6,16 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.exerciseapplication.data.source.local.dao.FavoriteDao
 import com.example.exerciseapplication.data.domain.entities.MenuItem
+import com.example.exerciseapplication.data.domain.entities.WineEntity
+import com.example.exerciseapplication.data.source.local.dao.CollectionWineDao
 
 // AppDatabaselà lớp cơ sở dữ liệu Room, exportSchema: xuất file json db
 @Database(
-    entities = [MenuItem::class],
+    entities = [MenuItem::class, WineEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun favoriteDao(): FavoriteDao
+    abstract fun collectionWineDao(): CollectionWineDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

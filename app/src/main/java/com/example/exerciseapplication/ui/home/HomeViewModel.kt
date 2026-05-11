@@ -9,7 +9,12 @@ import com.example.exerciseapplication.data.domain.entities.FakeData
 import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.data.domain.repository.FavoriteRepository
 import com.example.exerciseapplication.utils.AppConstants
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.Collections.emptyList
 
 class HomeViewModel(
     private val favoriteRepository: FavoriteRepository
@@ -19,12 +24,12 @@ class HomeViewModel(
     private val listFood = FakeData.getFoodList()
     private val listDrink = FakeData.getDrinkList()
 
-    // LiveData UI
-    private val _food = MediatorLiveData<List<MenuItem>>()
-    val food: LiveData<List<MenuItem>> = _food
+    // Flow UI
+    private val _food = MutableStateFlow<List<MenuItem>>(emptyList())
+    val food = _food.asStateFlow()
 
-    private val _drink = MediatorLiveData<List<MenuItem>>()
-    val drink: LiveData<List<MenuItem>> = _drink
+    private val _drink = MutableStateFlow<List<MenuItem>>(emptyList())
+    val drink = _drink.asStateFlow()
 
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -38,23 +43,27 @@ class HomeViewModel(
     }
 
     private fun initData() {
-        _food.addSource(foodFavorite) { favorites ->
-            updateUI(listFood, favorites, _food)
+        viewModelScope.launch {
+            foodFavorite.collect { favorites ->
+                updateUI(listFood, favorites, _food)
+            }
         }
 
-        _drink.addSource(drinkFavorite) { favorites ->
-            updateUI(listDrink, favorites, _drink)
+        viewModelScope.launch {
+            drinkFavorite.collect { favorites ->
+                updateUI(listDrink, favorites, _drink)
+            }
         }
     }
 
     private fun updateUI(
         baseList: List<MenuItem>,
         favorites: List<MenuItem>,
-        liveData: MutableLiveData<List<MenuItem>>
+        flowData: MutableStateFlow<List<MenuItem>>
     ) {
         val favoriteIds = favorites.map { it.id }.toSet()
 
-        liveData.value = baseList.map {
+        flowData.value = baseList.map {
             it.copy(isFavorite = favoriteIds.contains(it.id))
         }
     }
@@ -141,13 +150,19 @@ class HomeViewModel(
     }
 
     private fun refreshFood() {
-        val favorites = foodFavorite.value ?: emptyList()
-        updateUI(listFood, favorites, _food)
+        viewModelScope.launch {
+            foodFavorite.collect { list ->
+                updateUI(listFood, list, _food)
+            }
+        }
     }
 
     private fun refreshDrink() {
-        val favorites = drinkFavorite.value ?: emptyList()
-        updateUI(listDrink, favorites, _drink)
+        viewModelScope.launch {
+            val favorites =
+                drinkFavorite.first()
+            updateUI(listDrink, favorites, _drink)
+        }
     }
 
     fun setLoadingFalse() {
