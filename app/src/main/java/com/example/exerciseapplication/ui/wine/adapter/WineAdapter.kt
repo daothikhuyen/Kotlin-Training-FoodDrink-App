@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.exerciseapplication.data.domain.entities.Wine
 import com.example.exerciseapplication.data.domain.entities.WineEntity
 import com.example.exerciseapplication.databinding.ItemBeerBinding
 

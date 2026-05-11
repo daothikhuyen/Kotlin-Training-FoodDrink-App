@@ -12,7 +12,6 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.data.domain.entities.MenuItem
-import com.example.exerciseapplication.data.domain.entities.Wine
 import com.example.exerciseapplication.data.domain.entities.WineEntity
 import com.example.exerciseapplication.databinding.ActivityBeerBinding
 import com.example.exerciseapplication.di.Injection

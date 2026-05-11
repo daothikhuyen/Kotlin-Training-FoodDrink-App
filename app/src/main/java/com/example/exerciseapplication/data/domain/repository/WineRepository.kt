@@ -1,6 +1,5 @@
 package com.example.exerciseapplication.data.domain.repository
 
-import com.example.exerciseapplication.data.domain.entities.Wine
 import com.example.exerciseapplication.data.domain.entities.WineEntity
 import kotlinx.coroutines.flow.Flow
 
