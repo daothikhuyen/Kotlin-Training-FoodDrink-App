@@ -19,7 +19,7 @@ import java.util.Collections.emptyList
 class WineViewModel(private val wineRepository: WineRepository) : ViewModel() {
 
     private val _wines = MutableStateFlow<List<WineEntity>>(emptyList())
-    val wines: StateFlow<List<WineEntity>> = _wines
+    val wines: StateFlow<List<WineEntity>> = _wines // stateflow: lưu trạng thái của data
 
     private val _filteredWines = MutableStateFlow<List<WineEntity>>(emptyList())
     val filteredWines: StateFlow<List<WineEntity>> = _filteredWines
@@ -27,7 +27,7 @@ class WineViewModel(private val wineRepository: WineRepository) : ViewModel() {
     private val _searchText = MutableStateFlow("")
 
     private val _message = MutableSharedFlow<String>()
-    val message: SharedFlow<String> = _message
+    val message: SharedFlow<String> = _message // sharedflow: không lưu trạng thái của data, gửi dự kiện
 
     init {
         fetchWines()

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.exerciseapplication.R
 import com.example.exerciseapplication.data.domain.entities.WineEntity
 import com.example.exerciseapplication.databinding.ItemBeerBinding
 
@@ -20,6 +21,7 @@ class CollectionWineAdapter(
             binding.imgWine.load(item.image)
             binding.tvTitleWinery.text = item.winery
             binding.tvTitleWine.text = item.wine
+            binding.btnAdd.setImageResource(R.drawable.ic_minus_28dp_red)
 
             binding.btnAdd.setOnClickListener {
                 toggleCollection.invoke(item)
