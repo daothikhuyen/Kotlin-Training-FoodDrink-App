@@ -1,4 +1,4 @@
-package com.example.exerciseapplication.ui.beer
+package com.example.exerciseapplication.ui.wine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

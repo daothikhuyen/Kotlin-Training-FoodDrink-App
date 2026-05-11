@@ -1,21 +1,36 @@
-package com.example.exerciseapplication.ui.beer.adapter
+package com.example.exerciseapplication.ui.wine.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.exerciseapplication.data.domain.entities.Wine
+import com.example.exerciseapplication.data.domain.entities.WineEntity
 import com.example.exerciseapplication.databinding.ItemBeerBinding
 
-class WineAdapter(): ListAdapter<Wine, WineAdapter.BeerViewHolder>(MenuDiffCallback) {
+class WineAdapter(
+    var onDetailClick: (item: WineEntity) -> Unit,
+    var toggleCollection: (item: WineEntity) -> Unit
+): ListAdapter<WineEntity, WineAdapter.BeerViewHolder>(MenuDiffCallback) {
 
-    class BeerViewHolder(var binding: ItemBeerBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item: Wine){
+    inner class BeerViewHolder(var binding: ItemBeerBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item: WineEntity){
             binding.imgWine.load(item.image)
             binding.tvTitleWinery.text = item.winery
             binding.tvTitleWine.text = item.wine
+            binding.btnAdd.visibility = if (item.isCollected) View.GONE else View.VISIBLE
+
+            binding.btnAdd.setOnClickListener {
+                binding.btnAdd.visibility = View.GONE
+                toggleCollection.invoke(item)
+            }
+
+            binding.cardItemWine.setOnClickListener {
+                onDetailClick.invoke(item)
+            }
         }
     }
 
@@ -36,14 +51,14 @@ class WineAdapter(): ListAdapter<Wine, WineAdapter.BeerViewHolder>(MenuDiffCallb
     }
 
     companion object {
-        val MenuDiffCallback = object : DiffUtil.ItemCallback<Wine>() {
+        val MenuDiffCallback = object : DiffUtil.ItemCallback<WineEntity>() {
 
-            override fun areItemsTheSame(oldItem: Wine, newItem: Wine): Boolean {
+            override fun areItemsTheSame(oldItem: WineEntity, newItem: WineEntity): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: Wine, newItem: Wine
+                oldItem: WineEntity, newItem: WineEntity
             ): Boolean {
                 return oldItem == newItem
             }

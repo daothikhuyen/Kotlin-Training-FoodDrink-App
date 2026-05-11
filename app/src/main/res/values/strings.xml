@@ -61,4 +61,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="favorite">Yêu thích</string>
     <string name="search_in_products">Search in products</string>
+    <string name="view_all">Tất cả</string>
+    <string name="data_empty">Không tìm thấy thông tin nào</string>
+    <string name="list_collection">Danh Sách Sưu Tầm</string>
+    <string name="wine"> --- %s</string>
 </resources>

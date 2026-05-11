@@ -14,7 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.ActivityHomeBinding
 import com.example.exerciseapplication.di.Injection
-import com.example.exerciseapplication.ui.beer.WineActivity
+import com.example.exerciseapplication.ui.wine.WineActivity
 import com.example.exerciseapplication.ui.home.adapter.HomeAdapter
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
