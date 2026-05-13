@@ -6,7 +6,6 @@ import com.example.exerciseapplication.data.source.local.dao.CollectionWineDao
 import com.example.exerciseapplication.data.source.remote.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 class WineRepositoryImpl(private val api: ApiService, private val dao: CollectionWineDao) :
     WineRepository {
