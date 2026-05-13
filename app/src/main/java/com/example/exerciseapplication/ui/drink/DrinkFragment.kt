@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
-import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.ui.detail.DetailActivity
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
@@ -21,16 +18,14 @@ import com.example.exerciseapplication.ui.drink.adapter.DrinkAdapter
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
-import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.getValue
 
 class DrinkFragment : Fragment() {
 
     private var _binding: FragmentItemBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:  HomeViewModel by activityViewModels{
-        Injection.provideHomeVMFactory(requireContext())
-    }
+    private val viewModel:  HomeViewModel by activityViewModel()
     private var isFood: Boolean = false
 
     private val adapter by lazy {

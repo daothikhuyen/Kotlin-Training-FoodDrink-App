@@ -9,7 +9,6 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.data.domain.entities.WineEntity
 import com.example.exerciseapplication.databinding.ActivityCollectionWineBinding
-import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.ui.collection.adapter.CollectionWineAdapter
 import com.example.exerciseapplication.ui.detailwine.DetailWineActivity
 import com.example.exerciseapplication.ui.wine.WineViewModel

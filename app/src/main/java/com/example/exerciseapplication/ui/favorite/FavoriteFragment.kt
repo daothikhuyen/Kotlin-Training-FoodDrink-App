@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.exerciseapplication.databinding.FragmentFavoriteBinding
-import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.ui.favorite.adapter.FavoriteAdapter
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.utils.AppConstants
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.getValue
 
 class FavoriteFragment : Fragment() {
@@ -19,9 +19,7 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HomeViewModel by activityViewModels {
-        Injection.provideHomeVMFactory(requireContext())
-    }
+    private val viewModel: HomeViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

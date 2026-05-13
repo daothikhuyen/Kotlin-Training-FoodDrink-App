@@ -9,19 +9,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.databinding.FragmentFavoriteItemBinding
-import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.ui.favoriteitem.adapter.FavoriteItemAdapter
 import com.example.exerciseapplication.ui.home.HomeViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.getValue
 
 class FavoriteItem : Fragment() {
 
     private var _binding: FragmentFavoriteItemBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:  HomeViewModel by activityViewModels{
-        Injection.provideHomeVMFactory(requireContext())
-    }
+    private val viewModel:  HomeViewModel by activityViewModel()
 
     private val adapter by lazy {
         FavoriteItemAdapter()

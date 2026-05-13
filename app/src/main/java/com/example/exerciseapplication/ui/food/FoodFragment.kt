@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
 import com.example.exerciseapplication.databinding.FragmentItemBinding
-import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.ui.detail.DetailActivity
 import com.example.exerciseapplication.utils.bottomsheet.AddItemBottomSheet
@@ -21,15 +20,14 @@ import com.example.exerciseapplication.ui.food.adapter.FoodAdapter
 import com.example.exerciseapplication.utils.AppConstants
 import com.example.exerciseapplication.utils.setBorderColor
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.getValue
 
 class FoodFragment : Fragment() {
 
     private var _binding: FragmentItemBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: HomeViewModel by activityViewModels{
-        Injection.provideHomeVMFactory(requireContext())
-    }
+    private val viewModel: HomeViewModel by activityViewModel()
 
     private val isFood: Boolean = true
 
