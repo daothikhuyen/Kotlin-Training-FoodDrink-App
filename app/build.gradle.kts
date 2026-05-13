@@ -68,4 +68,8 @@ dependencies {
     // coil
     implementation("io.coil-kt:coil:2.6.0")
 
+    val koin_version= "4.2.0"
+    //Koin
+    implementation("io.insert-koin:koin-android:${koin_version}")
+
 }

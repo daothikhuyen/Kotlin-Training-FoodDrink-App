@@ -34,6 +34,7 @@ class DetailWineActivity : AppCompatActivity() {
         binding.tvWinery.text = itemWine!!.winery
         binding.tvWine.text = getString(R.string.wine, itemWine!!.wine)
         binding.tvLocation.text = itemWine!!.location
+        binding.tvRating.text = itemWine!!.rating.reviews
         binding.imageView.load(itemWine!!.image)
     }
 }

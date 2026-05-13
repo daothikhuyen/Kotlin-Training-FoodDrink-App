@@ -5,29 +5,24 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exerciseapplication.R
-import com.example.exerciseapplication.data.domain.entities.MenuItem
 import com.example.exerciseapplication.data.domain.entities.WineEntity
 import com.example.exerciseapplication.databinding.ActivityBeerBinding
-import com.example.exerciseapplication.di.Injection
 import com.example.exerciseapplication.ui.collection.CollectionWineActivity
 import com.example.exerciseapplication.ui.detailwine.DetailWineActivity
-import com.example.exerciseapplication.ui.drink.adapter.DrinkAdapter
 import com.example.exerciseapplication.ui.wine.adapter.WineAdapter
 import com.example.exerciseapplication.utils.AppConstants
 import kotlin.getValue
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WineActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBeerBinding
-    private val wineViewModel: WineViewModel by viewModels {
-        Injection.provideWineVMFactory(this)
-    }
+    private  val wineViewModel: WineViewModel by viewModel ()
 
     private val allAdapter by lazy {
         WineAdapter(

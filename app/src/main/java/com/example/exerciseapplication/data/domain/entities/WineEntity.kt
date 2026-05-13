@@ -14,6 +14,6 @@ data class WineEntity(
     val wine: String,
     val image: String,
     val location: String,
-    @Embedded val rating: Rating,
+    @Embedded val rating: Rating, // @Embedded để nhúng object vào room
     val isCollected: Boolean = false
 ): Parcelable

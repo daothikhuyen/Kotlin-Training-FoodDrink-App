@@ -14,16 +14,14 @@ import com.example.exerciseapplication.ui.collection.adapter.CollectionWineAdapt
 import com.example.exerciseapplication.ui.detailwine.DetailWineActivity
 import com.example.exerciseapplication.ui.wine.WineViewModel
 import com.example.exerciseapplication.utils.AppConstants
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
 class CollectionWineActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCollectionWineBinding
 
-    private val wineViewModel: CollectionViewModel by viewModels {
-        Injection.provideWineCollectionVMFactory(this)
-    }
-
+    private val wineViewModel: CollectionViewModel by viewModel()
 
     private val adapter by lazy {
         CollectionWineAdapter(
