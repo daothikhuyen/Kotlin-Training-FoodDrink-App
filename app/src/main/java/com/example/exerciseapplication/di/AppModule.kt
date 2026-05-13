@@ -7,9 +7,11 @@ import com.example.exerciseapplication.data.repository.WineRepositoryImpl
 import com.example.exerciseapplication.data.source.local.database.AppDatabase
 import com.example.exerciseapplication.data.source.network.RetrofitClient
 import com.example.exerciseapplication.ui.collection.CollectionViewModel
+import com.example.exerciseapplication.ui.home.HomeViewModel
 import com.example.exerciseapplication.ui.wine.WineViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import org.koin.plugin.module.dsl.single
 
 val appModule = module {
     // singleton cho AppDatabase
@@ -26,6 +28,7 @@ val appModule = module {
 
     single { WineViewModel(get()) }
     single { CollectionViewModel(get()) }
+    single { HomeViewModel(get()) }
 
     // factory : tạo mới mỗi lần inject
     // scoped : tạo một đối tượng gắn liền với thời gian tồn tại của phạm vi liên quan.
